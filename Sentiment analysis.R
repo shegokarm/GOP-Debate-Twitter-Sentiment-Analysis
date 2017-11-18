@@ -14,6 +14,7 @@ positive <- subset(tweets,sentiment == "Positive")
 neutral <- subset(tweets,sentiment == "Neutral")
 negative <- subset(tweets,sentiment == "Negative")
 
+# Function to clean and convert text to document term matrix
 wc <- function(documents){
   corpusnew <- Corpus(VectorSource(documents))
   corpusnew <- tm_map(corpusnew,content_transformer(tolower))
@@ -30,8 +31,9 @@ freq <- colSums(opt)
 freq <- sort(freq,decreasing = T)
 freq <- freq[c(-1,-2,-7)]
 
-  png("positive_tweets.png")
-  wordcloud(words = names(freq),freq,min.freq = sort(freq,decreasing = T)[[700]],random.order = FALSE,random.color = TRUE,
+# Plot positive sentiment wordcloud
+png("positive_tweets.png")
+wordcloud(words = names(freq),freq,min.freq = sort(freq,decreasing = T)[[700]],random.order = FALSE,random.color = TRUE,
             colors = brewer.pal(8, "Dark2"))
 dev.off()
 
@@ -40,6 +42,7 @@ freq <- colSums(opt)
 freq <- sort(freq,decreasing = T)
 freq <- freq[c(-1,-2)]
 
+# Plot neutral sentiment wordcloud
 png("neutral_tweets.png")
 wordcloud(words = names(freq),freq,min.freq = sort(freq,decreasing = T)[[700]],random.order = FALSE,random.color = TRUE,
           colors = brewer.pal(8, "Dark2"))
@@ -50,8 +53,8 @@ freq <- colSums(opt)
 freq <- sort(freq,decreasing = T)
 freq <- freq[c(-1,-2)]
 
+# Plot negative sentiment wordcloud
 png("negative_tweets.png")
 wordcloud(words = names(freq),freq,min.freq = sort(freq,decreasing = T)[[700]],random.order = FALSE,random.color = TRUE,
           colors = brewer.pal(8, "Dark2"))
 dev.off()
-
